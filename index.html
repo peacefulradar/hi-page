@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>One Question 💌</title>
+<title>One Question ☕</title>
 <style>
   body {
     margin: 0;
@@ -42,7 +42,7 @@
   }
 
   h1 {
-    color: red;
+    color: #b33f3f;
     margin-bottom: 25px;
   }
 
@@ -58,13 +58,13 @@
 
   button:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(255,0,0,0.3);
+    box-shadow: 0 4px 12px rgba(179,63,63,0.3);
   }
 
-  .before { background-color: #ff4d4d; color: white; }
-  .on     { background-color: #ffe5e5; color: red; }
-  .after  { background-color: #ffd6d6; color: red; position: absolute; transition: top 0.4s ease, left 0.4s ease; }
-  .option { background-color: #ffeded; color: red; }
+  .before { background-color: #b33f3f; color: white; }
+  .on     { background-color: #f2cfcf; color: #b33f3f; }
+  .after  { background-color: #f5d6d6; color: #b33f3f; position: absolute; transition: top 0.4s ease, left 0.4s ease; }
+  .option { background-color: #fde7e7; color: #b33f3f; }
 
   #response {
     margin-top: 20px;
@@ -75,16 +75,16 @@
     transition: opacity 0.6s ease;
   }
 
-  /* Floating hearts */
-  @keyframes floatHeart {
+  /* Floating tea cups */
+  @keyframes floatCup {
     0% { transform: translateY(0) scale(0.7); opacity: 1; }
     100% { transform: translateY(-500px) scale(1); opacity: 0; }
   }
-  .heart {
+  .cup {
     position: absolute;
-    font-size: 16px;
-    color: red;
-    animation: floatHeart 4s linear infinite;
+    font-size: 18px;
+    color: #b33f3f;
+    animation: floatCup 4s linear infinite;
   }
 </style>
 </head>
@@ -94,18 +94,18 @@
 <div class="bg-layer du"></div>
 
 <div class="container">
-  <h1>Will you go out on a date with me Pratibha?</h1>
+  <h1>Will you have a cup of chai with me? ☕</h1>
 
   <div id="mainOptions">
-    <button class="before" onclick="beforeClicked()">Before 14th ❤️</button>
-    <button class="on" id="onBtn" onclick="onClicked()">On 14th 💌</button>
-    <button class="after" id="afterBtn">After 14th 😉</button>
+    <button class="before" onclick="beforeClicked()">Before 7th Feb ❤️</button>
+    <button class="on" id="onBtn" onclick="onClicked()">On 7th Feb 💌</button>
+    <button class="after" id="afterBtn">After 7th Feb 😉</button>
   </div>
 
   <div id="subOptions" style="display: none;">
-    <button class="option" onclick="finalChoice('today')">Today 😌</button>
-    <button class="option" onclick="finalChoice('tomorrow')">Tomorrow 🙂</button>
-    <button class="option" onclick="finalChoice('dayafter')">Day after tomorrow 😉</button>
+    <button class="option" onclick="finalChoice('today')">Today ☕😌</button>
+    <button class="option" onclick="finalChoice('tomorrow')">Tomorrow ☕🙂</button>
+    <button class="option" onclick="finalChoice('dayafter')">Day after tomorrow ☕😉</button>
   </div>
 
   <div id="response"></div>
@@ -118,7 +118,7 @@ const mainOptions = document.getElementById("mainOptions");
 const subOptions = document.getElementById("subOptions");
 const onBtn = document.getElementById("onBtn");
 
-/* Move "After 14th" button */
+/* Move "After 7th Feb" button playfully */
 function moveAfterButton() {
   afterBtn.style.transform = "rotate(" + (Math.random()*20-10) + "deg)";
   const padding = 20;
@@ -142,38 +142,38 @@ function showMessage(msg) {
 
 /* Button interactions */
 function onClicked() {
-  showMessage("Are you sure? That’s a bit too far 😔");
+  showMessage("Are you sure? That’s a bit far 😔");
   setTimeout(() => {
-    showMessage("Let’s not wait that long… let’s make it happen before that instead 💕");
+    showMessage("Let’s not wait… let’s have chai before that instead 💕");
     onBtn.style.display = "none";
     afterBtn.style.display = "none";
   }, 1800);
 }
 
 function beforeClicked() {
-  showMessage("Okayyy 😄 when exactly?");
+  showMessage("Yay! 😄 When exactly shall we sip? ☕");
   mainOptions.style.display = "none";
   subOptions.style.display = "block";
 }
 
 function finalChoice(day) {
   let extraMessage = "";
-  if (day === "today") extraMessage = "Please be fast… I have to come from Gurgaon 😅";
-  else if (day === "tomorrow") extraMessage = "Okayyy 😌 but that’s like 24 hours!!!";
-  else extraMessage = "Wow… that’s some serious patience 😄 respect.";
+  if (day === "today") extraMessage = "Hurry! I need to come from Gurgaon 😅☕";
+  else if (day === "tomorrow") extraMessage = "Okayyy 😌 but that’s like 24 hours!!! ☕";
+  else extraMessage = "Wow… patience level expert 😄☕";
 
   showMessage("Oops 😅 I don’t actually get to know what you clicked…<br><br>Can you send me a screenshot please? 🙈<br><br><em>" + extraMessage + "</em>");
   subOptions.style.display = "none";
 }
 
-/* Floating hearts */
+/* Floating chai cups */
 setInterval(() => {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.style.left = Math.random() * window.innerWidth + "px";
-  heart.innerHTML = "❤️";
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 4000);
+  const cup = document.createElement("div");
+  cup.className = "cup";
+  cup.style.left = Math.random() * window.innerWidth + "px";
+  cup.innerHTML = "☕";
+  document.body.appendChild(cup);
+  setTimeout(() => cup.remove(), 4000);
 }, 800);
 </script>
 </body>
