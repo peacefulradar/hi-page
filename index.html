@@ -1,137 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>One Question 💌</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: white;
-      font-family: Arial, Helvetica, sans-serif;
-      overflow: hidden;
-    }
-    .container {
-      position: relative;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      color: red;
-      margin-bottom: 25px;
-    }
-    button {
-      padding: 12px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 8px;
-    }
-    .before {
-      background-color: #ff4d4d;
-      color: white;
-    }
-    .on {
-      background-color: #ffe5e5;
-      color: red;
-    }
-    .after {
-      background-color: #ffd6d6;
-      color: red;
-      position: absolute;
-    }
-    .option {
-      background-color: #ffeded;
-      color: red;
-    }
-    #response {
-      margin-top: 20px;
-      font-size: 17px;
-      color: #333;
-      max-width: 300px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>One Question 💌</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+  }
+
+  /* Background college images */
+  .bg-layer {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    z-index: 0;
+  }
+  .nit { left: 0; background-image: url('images/nit.jpeg'); }
+  .du  { right: 0; background-image: url('images/du.jpg'); }
+
+  /* Main container */
+  .container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    z-index: 1;
+  }
+
+  h1 {
+    color: red;
+    margin-bottom: 25px;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 8px;
+    transition: all 0.2s ease;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255,0,0,0.3);
+  }
+
+  .before { background-color: #ff4d4d; color: white; }
+  .on     { background-color: #ffe5e5; color: red; }
+  .after  { background-color: #ffd6d6; color: red; position: absolute; transition: top 0.4s ease, left 0.4s ease; }
+  .option { background-color: #ffeded; color: red; }
+
+  #response {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #333;
+    max-width: 300px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  /* Floating hearts */
+  @keyframes floatHeart {
+    0% { transform: translateY(0) scale(0.7); opacity: 1; }
+    100% { transform: translateY(-500px) scale(1); opacity: 0; }
+  }
+  .heart {
+    position: absolute;
+    font-size: 16px;
+    color: red;
+    animation: floatHeart 4s linear infinite;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Will you go out on a date with me?</h1>
 
-    <div id="mainOptions">
-      <button class="before" onclick="beforeClicked()">Before 14th ❤️</button>
-      <button class="on" id="onBtn" onclick="onClicked()">On 14th 💌</button>
-      <button class="after" id="afterBtn">After 14th 😉</button>
-    </div>
+<div class="bg-layer nit"></div>
+<div class="bg-layer du"></div>
 
-    <div id="subOptions" style="display: none;">
-      <button class="option" onclick="finalChoice('today')">Today 😌</button>
-      <button class="option" onclick="finalChoice('tomorrow')">Tomorrow 🙂</button>
-      <button class="option" onclick="finalChoice('dayafter')">Day after tomorrow 😉</button>
-    </div>
+<div class="container">
+  <h1>Will you go out on a date with me?</h1>
 
-    <div id="response"></div>
+  <div id="mainOptions">
+    <button class="before" onclick="beforeClicked()">Before 14th ❤️</button>
+    <button class="on" id="onBtn" onclick="onClicked()">On 14th 💌</button>
+    <button class="after" id="afterBtn">After 14th 😉</button>
   </div>
 
-  <script>
-    const afterBtn = document.getElementById("afterBtn");
-    const response = document.getElementById("response");
-    const mainOptions = document.getElementById("mainOptions");
-    const subOptions = document.getElementById("subOptions");
-    const onBtn = document.getElementById("onBtn");
+  <div id="subOptions" style="display: none;">
+    <button class="option" onclick="finalChoice('today')">Today 😌</button>
+    <button class="option" onclick="finalChoice('tomorrow')">Tomorrow 🙂</button>
+    <button class="option" onclick="finalChoice('dayafter')">Day after tomorrow 😉</button>
+  </div>
 
-    function moveAfterButton() {
-      const padding = 20;
-      const maxX = window.innerWidth - afterBtn.offsetWidth - padding;
-      const maxY = window.innerHeight - afterBtn.offsetHeight - padding;
+  <div id="response"></div>
+</div>
 
-      afterBtn.style.left = Math.random() * maxX + "px";
-      afterBtn.style.top = Math.random() * maxY + "px";
-    }
+<script>
+const afterBtn = document.getElementById("afterBtn");
+const response = document.getElementById("response");
+const mainOptions = document.getElementById("mainOptions");
+const subOptions = document.getElementById("subOptions");
+const onBtn = document.getElementById("onBtn");
 
-    afterBtn.addEventListener("mouseover", moveAfterButton);
-    afterBtn.addEventListener("touchstart", moveAfterButton);
-    moveAfterButton();
+/* Move "After 14th" button */
+function moveAfterButton() {
+  afterBtn.style.transform = "rotate(" + (Math.random()*20-10) + "deg)";
+  const padding = 20;
+  const maxX = window.innerWidth - afterBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - afterBtn.offsetHeight - padding;
+  afterBtn.style.left = Math.random() * maxX + "px";
+  afterBtn.style.top = Math.random() * maxY + "px";
+}
+afterBtn.addEventListener("mouseover", moveAfterButton);
+afterBtn.addEventListener("touchstart", moveAfterButton);
+moveAfterButton();
 
-    function onClicked() {
-      response.innerHTML = "Are you sure? That’s a bit too far 😔";
-      setTimeout(() => {
-        response.innerHTML =
-          "Let’s not wait that long… let’s make it happen before that instead 💕";
-        onBtn.style.display = "none";
-        afterBtn.style.display = "none";
-      }, 1800);
-    }
+/* Show messages with fade-in */
+function showMessage(msg) {
+  response.style.opacity = 0;
+  setTimeout(() => {
+    response.innerHTML = msg;
+    response.style.opacity = 1;
+  }, 300);
+}
 
-    function beforeClicked() {
-      response.innerHTML = "Okayyy 😄 when exactly?";
-      mainOptions.style.display = "none";
-      subOptions.style.display = "block";
-    }
+/* Button interactions */
+function onClicked() {
+  showMessage("Are you sure? That’s a bit too far 😔");
+  setTimeout(() => {
+    showMessage("Let’s not wait that long… let’s make it happen before that instead 💕");
+    onBtn.style.display = "none";
+    afterBtn.style.display = "none";
+  }, 1800);
+}
 
-    function finalChoice(day) {
-      let extraMessage = "";
+function beforeClicked() {
+  showMessage("Okayyy 😄 when exactly?");
+  mainOptions.style.display = "none";
+  subOptions.style.display = "block";
+}
 
-      if (day === "today") {
-        extraMessage = "Please be fast… I have to come from Gurgaon 😅";
-      } else if (day === "tomorrow") {
-        extraMessage = "Okayyy 😌 but that’s like 24 hours!!!";
-      } else {
-        extraMessage = "Wow… that’s some serious patience 😄 respect.";
-      }
+function finalChoice(day) {
+  let extraMessage = "";
+  if (day === "today") extraMessage = "Please be fast… I have to come from Gurgaon 😅";
+  else if (day === "tomorrow") extraMessage = "Okayyy 😌 but that’s like 24 hours!!!";
+  else extraMessage = "Wow… that’s some serious patience 😄 respect.";
 
-      response.innerHTML =
-        "Oops 😅 I don’t actually get to know what you clicked…<br><br>" +
-        "Can you send me a screenshot please? 🙈<br><br>" +
-        "<em>" + extraMessage + "</em>";
+  showMessage("Oops 😅 I don’t actually get to know what you clicked…<br><br>Can you send me a screenshot please? 🙈<br><br><em>" + extraMessage + "</em>");
+  subOptions.style.display = "none";
+}
 
-      subOptions.style.display = "none";
-    }
-  </script>
+/* Floating hearts */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.innerHTML = "❤️";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 4000);
+}, 800);
+</script>
 </body>
 </html>
